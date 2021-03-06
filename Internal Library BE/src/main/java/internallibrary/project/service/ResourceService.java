@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ResourceService extends BindingResultErrors {
+public class ResourceService {
 
     @Autowired
     private ResourceRepository resourceRepository;

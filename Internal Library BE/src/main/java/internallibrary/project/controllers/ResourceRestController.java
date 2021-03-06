@@ -26,32 +26,15 @@ public class ResourceRestController {
     }
 
     @PostMapping
-    public ResponseEntity<?> postResource(@Valid @RequestBody Resource resource,
-                                          BindingResult bindingResult) {
-
-        System.out.println(bindingResult);
-        if (!bindingResult.hasErrors()) {
-
-            resourceService.saveResource(resource);
-        } else {
-
-            return resourceService.bindingResultErrors(bindingResult);
-        }
-
+    public ResponseEntity<?> postResource(@RequestBody Resource resource) {
+        resourceService.saveResource(resource);
         return new ResponseEntity<>(resource, HttpStatus.CREATED);
     }
 
 
     @PutMapping
-    public ResponseEntity<?> putResource(@Valid @RequestBody Resource resource,
-                                         BindingResult bindingResult) {
-        if (!bindingResult.hasErrors()) {
-
-            resourceService.saveResource(resource);
-        } else {
-
-            return resourceService.bindingResultErrors(bindingResult);
-        }
+    public ResponseEntity<?> putResource(@RequestBody Resource resource) {
+        resourceService.saveResource(resource);
 
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }

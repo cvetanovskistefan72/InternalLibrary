@@ -1,6 +1,4 @@
 package internallibrary.project.model;
-
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
