@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ResourceService {
+public class ResourceService extends BindingResultErrors {
 
     @Autowired
     private ResourceRepository resourceRepository;
@@ -28,11 +28,11 @@ public class ResourceService {
         return resourceRepository.findResourceById(id);
     }
 
-    public Resource deleteResource(Integer id) {
-
-        Resource resource = resourceRepository.findResourceById(id);
+    public Resource deleteResource(Resource resource) {
         resourceRepository.delete(resource);
         return resource;
     }
+
+
 
 }

@@ -1,9 +1,11 @@
 package internallibrary.project.model;
+import internallibrary.project.service.BindingResultErrors;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Entity
-public class Resource {
+public class Resource{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +18,9 @@ public class Resource {
     @Column(name = "type")
     private String type;
 
-
+    @NotBlank(message = "name is required")
+    @Column(name="name")
+    private String name;
 
     @NotBlank(message ="Description is required")
     @Size(min = 10,message = "Minimum 10 characters allowed")
@@ -32,16 +36,24 @@ public class Resource {
     private Integer quantity;
 
 
-
-    public Resource(Integer id, String type, String description, Integer quantity) {
+    public Resource(Integer id, @NotBlank(message = "Type is required") String type, @NotBlank(message = "name is required") String name, @NotBlank(message = "Description is required") @Size(min = 10, message = "Minimum 10 characters allowed") @Size(max = 500, message = "Maxium 100 characters allowed") String description, @NotNull(message = "Quantity is required") @Min(value = 1, message = "Minimum 1 quantity is allowed") @Max(value = 100, message = "Maximum 100 quantity is allowed") Integer quantity) {
         this.id = id;
         this.type = type;
+        this.name = name;
         this.description = description;
         this.quantity = quantity;
     }
 
     public Resource() {
 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getId() {

@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+
+
 @RestController
-@CrossOrigin
 @RequestMapping("/resource")
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 public class ResourceRestController {
 
     @Autowired
@@ -26,7 +28,15 @@ public class ResourceRestController {
     }
 
     @PostMapping
-    public ResponseEntity<?> postResource(@RequestBody Resource resource) {
+    public ResponseEntity<?> postResource(@Valid @RequestBody Resource resource,
+                                          BindingResult bindingResult) {
+        if(!bindingResult.hasErrors()){
+
+            resourceService.saveResource(resource);
+        }else{
+
+            return  resourceService.bindingResultErrors(bindingResult);
+        }
         resourceService.saveResource(resource);
         return new ResponseEntity<>(resource, HttpStatus.CREATED);
     }
@@ -44,9 +54,12 @@ public class ResourceRestController {
         return new ResponseEntity<>(resourceService.getResource(id), HttpStatus.OK);
     }
 
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteResource(@PathVariable Integer id) {
-        return new ResponseEntity<>(resourceService.deleteResource(id), HttpStatus.OK);
+        Resource resource = resourceService.getResource(id);
+        return new ResponseEntity<Resource>(resourceService.deleteResource(resource), HttpStatus.OK);
     }
 
 

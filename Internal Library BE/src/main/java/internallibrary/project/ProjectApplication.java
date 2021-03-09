@@ -2,10 +2,11 @@ package internallibrary.project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 import java.awt.print.Book;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 public class ProjectApplication {
 
     public static void main(String[] args) {
@@ -13,5 +14,12 @@ public class ProjectApplication {
     }
 
 }
+
+
+
+
+
+
+
 
 
