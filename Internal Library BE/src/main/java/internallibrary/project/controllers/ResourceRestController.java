@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/resource")
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:3001", maxAge = 3600)
 public class ResourceRestController {
 
     @Autowired
@@ -37,14 +37,21 @@ public class ResourceRestController {
 
             return  resourceService.bindingResultErrors(bindingResult);
         }
-        resourceService.saveResource(resource);
+
         return new ResponseEntity<>(resource, HttpStatus.CREATED);
     }
 
 
     @PutMapping
-    public ResponseEntity<?> putResource(@RequestBody Resource resource) {
-        resourceService.saveResource(resource);
+    public ResponseEntity<?> putResource(@Valid @RequestBody Resource resource,
+                                         BindingResult bindingResult) {
+        if(!bindingResult.hasErrors()){
+
+            resourceService.saveResource(resource);
+        }else{
+
+            return  resourceService.bindingResultErrors(bindingResult);
+        }
 
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
