@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/resource")
+@RequestMapping("/resources")
 @CrossOrigin(origins = "http://localhost:3001", maxAge = 3600)
 public class ResourceRestController {
 

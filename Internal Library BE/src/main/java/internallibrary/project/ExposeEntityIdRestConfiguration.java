@@ -1,5 +1,6 @@
 package internallibrary.project;
 
+import internallibrary.project.model.Author;
 import internallibrary.project.model.Resource;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.context.ApplicationContext;
@@ -19,5 +20,6 @@ class ExposeEntityIdRestMvcConfiguration extends RepositoryRestConfigurerAdapter
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.exposeIdsFor(Resource.class);
+        config.exposeIdsFor(Author.class);
     }
 }
