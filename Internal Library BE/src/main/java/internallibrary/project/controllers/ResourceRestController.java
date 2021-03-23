@@ -27,6 +27,14 @@ public class ResourceRestController {
         return new ResponseEntity<>(resourceService.getResources(), HttpStatus.OK);
     }
 
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Resource>> searchResources(@RequestParam(value = "Text")
+                                                                      String Text,@RequestParam(value = "Type") String Type ){
+
+        return new ResponseEntity<>(resourceService.searchResources(Text,Type), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<?> postResource(@Valid @RequestBody Resource resource,
                                           BindingResult bindingResult) {

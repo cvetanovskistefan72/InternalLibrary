@@ -38,13 +38,20 @@ public class Resource{
     private Integer quantity;
 
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.REFRESH, CascadeType.DETACH,CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST})
     @JoinTable(
             name = "resource_author",
             joinColumns = @JoinColumn(name = "resource_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private List<Author> authors;
 
+    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.REFRESH, CascadeType.DETACH,CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinTable(
+            name = "resource_borroed",
+            joinColumns = @JoinColumn(name = "resource_id"),
+            inverseJoinColumns = @JoinColumn(name = "borrowed_id"))
+    @JsonIgnore
+    private List<Borrowed> borrowedList;
 
     public Resource(Integer id, @NotBlank(message = "Type is required") String type, @NotBlank(message = "name is required") String name, @NotBlank(message = "Description is required") @Size(min = 10, message = "Minimum 10 characters allowed") @Size(max = 500, message = "Maxium 100 characters allowed") String description, @NotNull(message = "Quantity is required") @Min(value = 1, message = "Minimum 1 quantity is allowed") @Max(value = 100, message = "Maximum 100 quantity is allowed") Integer quantity) {
         this.id = id;
@@ -56,6 +63,15 @@ public class Resource{
 
     public Resource() {
 
+    }
+
+
+    public List<Borrowed> getBorrowedList() {
+        return borrowedList;
+    }
+
+    public void setBorrowedList(List<Borrowed> borrowedList) {
+        this.borrowedList = borrowedList;
     }
 
     public List<Author> getAuthors() {
