@@ -32,7 +32,7 @@ public class Resource{
 
 
     @NotNull(message ="Quantity is required")
-    @Min(value = 1,message = "Minimum 1 quantity is allowed")
+    @Min(value = 0,message = "Minimum 0 quantity is allowed")
     @Max(value = 100,message = "Maximum 100 quantity is allowed")
     @Column(name = "quantity")
     private Integer quantity;
